@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .result { margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Password Strength Checker</h2>
+    <input type="text" id="passwordInput" placeholder="Enter password">
+    <button onclick="checkPassword()">Check Strength</button>
+    <div id="output" class="result"></div>
+
+    <script>
+        function checkPassword() {
+            // Take password as input
+            const password = document.getElementById('passwordInput').value;
+            const outputDiv = document.getElementById('output');
+            
+            // Conditions
+            let lengthMet = password.length >= 8;
+            let hasNumber = false;
+            let hasSpecial = false;
+            const specialChars = "!@#$%^&*";
+
+            // Loop through string to check characters
+            for (let i = 0; i < password.length; i++) {
+                let char = password[i];
+                
+                // Check if character is a number
+                if (char >= '0' && char <= '9') {
+                    hasNumber = true;
+                }
+                
+                // Check if character is a special character
+                if (specialChars.includes(char)) {
+                    hasSpecial = true;
+                }
+            }
+
+            // Determine strength
+            if (lengthMet && hasNumber && hasSpecial) {
+                outputDiv.innerText = "Strong";
+                outputDiv.style.color = "green";
+            } else if (lengthMet && (hasNumber || hasSpecial)) {
+                outputDiv.innerText = "Medium";
+                outputDiv.style.color = "orange";
+            } else {
+                outputDiv.innerText = "Weak";
+                outputDiv.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
